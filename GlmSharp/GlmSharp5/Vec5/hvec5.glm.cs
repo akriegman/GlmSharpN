@@ -1,0 +1,502 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Numerics;
+using System.Linq;
+using GlmSharp.Swizzle;
+
+// ReSharper disable InconsistentNaming
+
+namespace GlmSharp
+{
+    /// <summary>
+    /// Static class that contains static glm functions
+    /// </summary>
+    public static partial class glm
+    {
+        
+        /// <summary>
+        /// Returns an object that can be used for arbitrary swizzling (e.g. swizzle.zy)
+        /// </summary>
+        public static swizzle_hvec5 swizzle(hvec5 v) => v.swizzle;
+        
+        /// <summary>
+        /// Returns an array with all values
+        /// </summary>
+        public static Half[] Values(hvec5 v) => v.Values;
+        
+        /// <summary>
+        /// Returns an enumerator that iterates through all components.
+        /// </summary>
+        public static IEnumerator<Half> GetEnumerator(hvec5 v) => v.GetEnumerator();
+        
+        /// <summary>
+        /// Returns a string representation of this vector using ', ' as a seperator.
+        /// </summary>
+        public static string ToString(hvec5 v) => v.ToString();
+        
+        /// <summary>
+        /// Returns a string representation of this vector using a provided seperator.
+        /// </summary>
+        public static string ToString(hvec5 v, string sep) => v.ToString(sep);
+        
+        /// <summary>
+        /// Returns a string representation of this vector using a provided seperator and a format provider for each component.
+        /// </summary>
+        public static string ToString(hvec5 v, string sep, IFormatProvider provider) => v.ToString(sep, provider);
+        
+        /// <summary>
+        /// Returns a string representation of this vector using a provided seperator and a format for each component.
+        /// </summary>
+        public static string ToString(hvec5 v, string sep, string format) => v.ToString(sep, format);
+        
+        /// <summary>
+        /// Returns a string representation of this vector using a provided seperator and a format and format provider for each component.
+        /// </summary>
+        public static string ToString(hvec5 v, string sep, string format, IFormatProvider provider) => v.ToString(sep, format, provider);
+        
+        /// <summary>
+        /// Returns the number of components (5).
+        /// </summary>
+        public static int Count(hvec5 v) => v.Count;
+        
+        /// <summary>
+        /// Returns true iff this equals rhs component-wise.
+        /// </summary>
+        public static bool Equals(hvec5 v, hvec5 rhs) => v.Equals(rhs);
+        
+        /// <summary>
+        /// Returns true iff this equals rhs type- and component-wise.
+        /// </summary>
+        public static bool Equals(hvec5 v, object obj) => v.Equals(obj);
+        
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        public static int GetHashCode(hvec5 v) => v.GetHashCode();
+        
+        /// <summary>
+        /// Returns true iff distance between lhs and rhs is less than or equal to epsilon
+        /// </summary>
+        public static bool ApproxEqual(hvec5 lhs, hvec5 rhs, float eps = 0.1f) => hvec5.ApproxEqual(lhs, rhs, eps);
+        
+        /// <summary>
+        /// Returns a bvec5 from component-wise application of Equal (lhs == rhs).
+        /// </summary>
+        public static bvec5 Equal(hvec5 lhs, hvec5 rhs) => hvec5.Equal(lhs, rhs);
+        
+        /// <summary>
+        /// Returns a bvec5 from component-wise application of NotEqual (lhs != rhs).
+        /// </summary>
+        public static bvec5 NotEqual(hvec5 lhs, hvec5 rhs) => hvec5.NotEqual(lhs, rhs);
+        
+        /// <summary>
+        /// Returns a bvec5 from component-wise application of GreaterThan (lhs &gt; rhs).
+        /// </summary>
+        public static bvec5 GreaterThan(hvec5 lhs, hvec5 rhs) => hvec5.GreaterThan(lhs, rhs);
+        
+        /// <summary>
+        /// Returns a bvec5 from component-wise application of GreaterThanEqual (lhs &gt;= rhs).
+        /// </summary>
+        public static bvec5 GreaterThanEqual(hvec5 lhs, hvec5 rhs) => hvec5.GreaterThanEqual(lhs, rhs);
+        
+        /// <summary>
+        /// Returns a bvec5 from component-wise application of LesserThan (lhs &lt; rhs).
+        /// </summary>
+        public static bvec5 LesserThan(hvec5 lhs, hvec5 rhs) => hvec5.LesserThan(lhs, rhs);
+        
+        /// <summary>
+        /// Returns a bvec5 from component-wise application of LesserThanEqual (lhs &lt;= rhs).
+        /// </summary>
+        public static bvec5 LesserThanEqual(hvec5 lhs, hvec5 rhs) => hvec5.LesserThanEqual(lhs, rhs);
+        
+        /// <summary>
+        /// Returns a bvec5 from component-wise application of IsInfinity (Half.IsInfinity(v)).
+        /// </summary>
+        public static bvec5 IsInfinity(hvec5 v) => hvec5.IsInfinity(v);
+        
+        /// <summary>
+        /// Returns a bvec5 from component-wise application of IsFinite (!Half.IsNaN(v) &amp;&amp; !Half.IsInfinity(v)).
+        /// </summary>
+        public static bvec5 IsFinite(hvec5 v) => hvec5.IsFinite(v);
+        
+        /// <summary>
+        /// Returns a bvec5 from component-wise application of IsNaN (Half.IsNaN(v)).
+        /// </summary>
+        public static bvec5 IsNaN(hvec5 v) => hvec5.IsNaN(v);
+        
+        /// <summary>
+        /// Returns a bvec5 from component-wise application of IsNegativeInfinity (Half.IsNegativeInfinity(v)).
+        /// </summary>
+        public static bvec5 IsNegativeInfinity(hvec5 v) => hvec5.IsNegativeInfinity(v);
+        
+        /// <summary>
+        /// Returns a bvec5 from component-wise application of IsPositiveInfinity (Half.IsPositiveInfinity(v)).
+        /// </summary>
+        public static bvec5 IsPositiveInfinity(hvec5 v) => hvec5.IsPositiveInfinity(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Abs (Half.Abs(v)).
+        /// </summary>
+        public static hvec5 Abs(hvec5 v) => hvec5.Abs(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of HermiteInterpolationOrder3 ((3 - 2 * v) * v * v).
+        /// </summary>
+        public static hvec5 HermiteInterpolationOrder3(hvec5 v) => hvec5.HermiteInterpolationOrder3(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of HermiteInterpolationOrder5 (((6 * v - 15) * v + 10) * v * v * v).
+        /// </summary>
+        public static hvec5 HermiteInterpolationOrder5(hvec5 v) => hvec5.HermiteInterpolationOrder5(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Sqr (v * v).
+        /// </summary>
+        public static hvec5 Sqr(hvec5 v) => hvec5.Sqr(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Pow2 (v * v).
+        /// </summary>
+        public static hvec5 Pow2(hvec5 v) => hvec5.Pow2(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Pow3 (v * v * v).
+        /// </summary>
+        public static hvec5 Pow3(hvec5 v) => hvec5.Pow3(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Step (v &gt;= Half.Zero ? Half.One : Half.Zero).
+        /// </summary>
+        public static hvec5 Step(hvec5 v) => hvec5.Step(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Sqrt ((Half)Math.Sqrt((double)v)).
+        /// </summary>
+        public static hvec5 Sqrt(hvec5 v) => hvec5.Sqrt(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of InverseSqrt ((Half)(1.0 / Math.Sqrt((double)v))).
+        /// </summary>
+        public static hvec5 InverseSqrt(hvec5 v) => hvec5.InverseSqrt(v);
+        
+        /// <summary>
+        /// Returns a ivec5 from component-wise application of Sign (Math.Sign(v)).
+        /// </summary>
+        public static ivec5 Sign(hvec5 v) => hvec5.Sign(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Max (Half.Max(lhs, rhs)).
+        /// </summary>
+        public static hvec5 Max(hvec5 lhs, hvec5 rhs) => hvec5.Max(lhs, rhs);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Min (Half.Min(lhs, rhs)).
+        /// </summary>
+        public static hvec5 Min(hvec5 lhs, hvec5 rhs) => hvec5.Min(lhs, rhs);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Pow ((Half)Math.Pow((double)lhs, (double)rhs)).
+        /// </summary>
+        public static hvec5 Pow(hvec5 lhs, hvec5 rhs) => hvec5.Pow(lhs, rhs);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Log ((Half)Math.Log((double)lhs, (double)rhs)).
+        /// </summary>
+        public static hvec5 Log(hvec5 lhs, hvec5 rhs) => hvec5.Log(lhs, rhs);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Clamp (Half.Min(Half.Max(v, min), max)).
+        /// </summary>
+        public static hvec5 Clamp(hvec5 v, hvec5 min, hvec5 max) => hvec5.Clamp(v, min, max);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Mix (min * (1-a) + max * a).
+        /// </summary>
+        public static hvec5 Mix(hvec5 min, hvec5 max, hvec5 a) => hvec5.Mix(min, max, a);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Lerp (min * (1-a) + max * a).
+        /// </summary>
+        public static hvec5 Lerp(hvec5 min, hvec5 max, hvec5 a) => hvec5.Lerp(min, max, a);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Smoothstep (((v - edge0) / (edge1 - edge0)).Clamp().HermiteInterpolationOrder3()).
+        /// </summary>
+        public static hvec5 Smoothstep(hvec5 edge0, hvec5 edge1, hvec5 v) => hvec5.Smoothstep(edge0, edge1, v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Smootherstep (((v - edge0) / (edge1 - edge0)).Clamp().HermiteInterpolationOrder5()).
+        /// </summary>
+        public static hvec5 Smootherstep(hvec5 edge0, hvec5 edge1, hvec5 v) => hvec5.Smootherstep(edge0, edge1, v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Fma (a * b + c).
+        /// </summary>
+        public static hvec5 Fma(hvec5 a, hvec5 b, hvec5 c) => hvec5.Fma(a, b, c);
+        
+        /// <summary>
+        /// OuterProduct treats the first parameter c as a column vector (matrix with one column) and the second parameter r as a row vector (matrix with one row) and does a linear algebraic matrix multiply c * r, yielding a matrix whose number of rows is the number of components in c and whose number of columns is the number of components in r.
+        /// </summary>
+        public static hmat2x5 OuterProduct(hvec5 c, hvec2 r) => hvec5.OuterProduct(c, r);
+        
+        /// <summary>
+        /// OuterProduct treats the first parameter c as a column vector (matrix with one column) and the second parameter r as a row vector (matrix with one row) and does a linear algebraic matrix multiply c * r, yielding a matrix whose number of rows is the number of components in c and whose number of columns is the number of components in r.
+        /// </summary>
+        public static hmat3x5 OuterProduct(hvec5 c, hvec3 r) => hvec5.OuterProduct(c, r);
+        
+        /// <summary>
+        /// OuterProduct treats the first parameter c as a column vector (matrix with one column) and the second parameter r as a row vector (matrix with one row) and does a linear algebraic matrix multiply c * r, yielding a matrix whose number of rows is the number of components in c and whose number of columns is the number of components in r.
+        /// </summary>
+        public static hmat4x5 OuterProduct(hvec5 c, hvec4 r) => hvec5.OuterProduct(c, r);
+        
+        /// <summary>
+        /// OuterProduct treats the first parameter c as a column vector (matrix with one column) and the second parameter r as a row vector (matrix with one row) and does a linear algebraic matrix multiply c * r, yielding a matrix whose number of rows is the number of components in c and whose number of columns is the number of components in r.
+        /// </summary>
+        public static hmat5 OuterProduct(hvec5 c, hvec5 r) => hvec5.OuterProduct(c, r);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Add (lhs + rhs).
+        /// </summary>
+        public static hvec5 Add(hvec5 lhs, hvec5 rhs) => hvec5.Add(lhs, rhs);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Sub (lhs - rhs).
+        /// </summary>
+        public static hvec5 Sub(hvec5 lhs, hvec5 rhs) => hvec5.Sub(lhs, rhs);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Mul (lhs * rhs).
+        /// </summary>
+        public static hvec5 Mul(hvec5 lhs, hvec5 rhs) => hvec5.Mul(lhs, rhs);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Div (lhs / rhs).
+        /// </summary>
+        public static hvec5 Div(hvec5 lhs, hvec5 rhs) => hvec5.Div(lhs, rhs);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Modulo (lhs % rhs).
+        /// </summary>
+        public static hvec5 Modulo(hvec5 lhs, hvec5 rhs) => hvec5.Modulo(lhs, rhs);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Degrees (Radians-To-Degrees Conversion).
+        /// </summary>
+        public static hvec5 Degrees(hvec5 v) => hvec5.Degrees(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Radians (Degrees-To-Radians Conversion).
+        /// </summary>
+        public static hvec5 Radians(hvec5 v) => hvec5.Radians(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Acos ((Half)Math.Acos((double)v)).
+        /// </summary>
+        public static hvec5 Acos(hvec5 v) => hvec5.Acos(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Asin ((Half)Math.Asin((double)v)).
+        /// </summary>
+        public static hvec5 Asin(hvec5 v) => hvec5.Asin(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Atan ((Half)Math.Atan((double)v)).
+        /// </summary>
+        public static hvec5 Atan(hvec5 v) => hvec5.Atan(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Cos ((Half)Math.Cos((double)v)).
+        /// </summary>
+        public static hvec5 Cos(hvec5 v) => hvec5.Cos(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Cosh ((Half)Math.Cosh((double)v)).
+        /// </summary>
+        public static hvec5 Cosh(hvec5 v) => hvec5.Cosh(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Exp ((Half)Math.Exp((double)v)).
+        /// </summary>
+        public static hvec5 Exp(hvec5 v) => hvec5.Exp(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Log ((Half)Math.Log((double)v)).
+        /// </summary>
+        public static hvec5 Log(hvec5 v) => hvec5.Log(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Log2 ((Half)Math.Log((double)v, 2)).
+        /// </summary>
+        public static hvec5 Log2(hvec5 v) => hvec5.Log2(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Log10 ((Half)Math.Log10((double)v)).
+        /// </summary>
+        public static hvec5 Log10(hvec5 v) => hvec5.Log10(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Floor ((Half)Math.Floor(v)).
+        /// </summary>
+        public static hvec5 Floor(hvec5 v) => hvec5.Floor(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Ceiling ((Half)Math.Ceiling(v)).
+        /// </summary>
+        public static hvec5 Ceiling(hvec5 v) => hvec5.Ceiling(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Round ((Half)Math.Round(v)).
+        /// </summary>
+        public static hvec5 Round(hvec5 v) => hvec5.Round(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Sin ((Half)Math.Sin((double)v)).
+        /// </summary>
+        public static hvec5 Sin(hvec5 v) => hvec5.Sin(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Sinh ((Half)Math.Sinh((double)v)).
+        /// </summary>
+        public static hvec5 Sinh(hvec5 v) => hvec5.Sinh(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Tan ((Half)Math.Tan((double)v)).
+        /// </summary>
+        public static hvec5 Tan(hvec5 v) => hvec5.Tan(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Tanh ((Half)Math.Tanh((double)v)).
+        /// </summary>
+        public static hvec5 Tanh(hvec5 v) => hvec5.Tanh(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Truncate ((Half)Math.Truncate((double)v)).
+        /// </summary>
+        public static hvec5 Truncate(hvec5 v) => hvec5.Truncate(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Fract ((Half)(v - Math.Floor(v))).
+        /// </summary>
+        public static hvec5 Fract(hvec5 v) => hvec5.Fract(v);
+        
+        /// <summary>
+        /// Returns a hvec5 from component-wise application of Trunc ((long)(v)).
+        /// </summary>
+        public static hvec5 Trunc(hvec5 v) => hvec5.Trunc(v);
+        
+        /// <summary>
+        /// Returns the minimal component of this vector.
+        /// </summary>
+        public static Half MinElement(hvec5 v) => v.MinElement;
+        
+        /// <summary>
+        /// Returns the maximal component of this vector.
+        /// </summary>
+        public static Half MaxElement(hvec5 v) => v.MaxElement;
+        
+        /// <summary>
+        /// Returns the euclidean length of this vector.
+        /// </summary>
+        public static float Length(hvec5 v) => v.Length;
+        
+        /// <summary>
+        /// Returns the squared euclidean length of this vector.
+        /// </summary>
+        public static float LengthSqr(hvec5 v) => v.LengthSqr;
+        
+        /// <summary>
+        /// Returns the sum of all components.
+        /// </summary>
+        public static Half Sum(hvec5 v) => v.Sum;
+        
+        /// <summary>
+        /// Returns the euclidean norm of this vector.
+        /// </summary>
+        public static float Norm(hvec5 v) => v.Norm;
+        
+        /// <summary>
+        /// Returns the one-norm of this vector.
+        /// </summary>
+        public static float Norm1(hvec5 v) => v.Norm1;
+        
+        /// <summary>
+        /// Returns the two-norm (euclidean length) of this vector.
+        /// </summary>
+        public static float Norm2(hvec5 v) => v.Norm2;
+        
+        /// <summary>
+        /// Returns the max-norm of this vector.
+        /// </summary>
+        public static float NormMax(hvec5 v) => v.NormMax;
+        
+        /// <summary>
+        /// Returns the p-norm of this vector.
+        /// </summary>
+        public static double NormP(hvec5 v, double p) => v.NormP(p);
+        
+        /// <summary>
+        /// Returns a copy of this vector with length one (undefined if this has zero length).
+        /// </summary>
+        public static hvec5 Normalized(hvec5 v) => v.Normalized;
+        
+        /// <summary>
+        /// Returns a copy of this vector with length one (returns zero if length is zero).
+        /// </summary>
+        public static hvec5 NormalizedSafe(hvec5 v) => v.NormalizedSafe;
+        
+        /// <summary>
+        /// Returns the inner product (dot product, scalar product) of the two vectors.
+        /// </summary>
+        public static Half Dot(hvec5 lhs, hvec5 rhs) => hvec5.Dot(lhs, rhs);
+        
+        /// <summary>
+        /// Returns the euclidean distance between the two vectors.
+        /// </summary>
+        public static float Distance(hvec5 lhs, hvec5 rhs) => hvec5.Distance(lhs, rhs);
+        
+        /// <summary>
+        /// Returns the squared euclidean distance between the two vectors.
+        /// </summary>
+        public static float DistanceSqr(hvec5 lhs, hvec5 rhs) => hvec5.DistanceSqr(lhs, rhs);
+        
+        /// <summary>
+        /// Calculate the reflection direction for an incident vector (N should be normalized in order to achieve the desired result).
+        /// </summary>
+        public static hvec5 Reflect(hvec5 I, hvec5 N) => hvec5.Reflect(I, N);
+        
+        /// <summary>
+        /// Calculate the refraction direction for an incident vector (The input parameters I and N should be normalized in order to achieve the desired result).
+        /// </summary>
+        public static hvec5 Refract(hvec5 I, hvec5 N, Half eta) => hvec5.Refract(I, N, eta);
+        
+        /// <summary>
+        /// Returns a vector pointing in the same direction as another (faceforward orients a vector to point away from a surface as defined by its normal. If dot(Nref, I) is negative faceforward returns N, otherwise it returns -N).
+        /// </summary>
+        public static hvec5 FaceForward(hvec5 N, hvec5 I, hvec5 Nref) => hvec5.FaceForward(N, I, Nref);
+        
+        /// <summary>
+        /// Returns a hvec5 with independent and identically distributed uniform values between 'minValue' and 'maxValue'.
+        /// </summary>
+        public static hvec5 Random(Random random, hvec5 minValue, hvec5 maxValue) => hvec5.Random(random, minValue, maxValue);
+        
+        /// <summary>
+        /// Returns a hvec5 with independent and identically distributed uniform values between 'minValue' and 'maxValue'.
+        /// </summary>
+        public static hvec5 RandomUniform(Random random, hvec5 minValue, hvec5 maxValue) => hvec5.RandomUniform(random, minValue, maxValue);
+        
+        /// <summary>
+        /// Returns a hvec5 with independent and identically distributed values according to a normal/Gaussian distribution with specified mean and variance.
+        /// </summary>
+        public static hvec5 RandomNormal(Random random, hvec5 mean, hvec5 variance) => hvec5.RandomNormal(random, mean, variance);
+        
+        /// <summary>
+        /// Returns a hvec5 with independent and identically distributed values according to a normal/Gaussian distribution with specified mean and variance.
+        /// </summary>
+        public static hvec5 RandomGaussian(Random random, hvec5 mean, hvec5 variance) => hvec5.RandomGaussian(random, mean, variance);
+
+    }
+}
